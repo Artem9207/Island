@@ -47,7 +47,8 @@ public class Location {
     }
 
     public void removeGameObject(GameObject gameObject) {
-        gameObjects.remove(gameObject);
+        gameObjects.removeIf(obj -> obj.equals(gameObject));
     }
+
 
 }

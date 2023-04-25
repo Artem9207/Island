@@ -107,15 +107,15 @@ public class Island {
                 List<Animal> eatenAnimals = new ArrayList<>(); // создаем новый список для хранения съеденных животных
                 if (animals.size() > 1) {
                     for (Animal animal : animals) {
-                        animal.eat(island);
+                        animal.eat(this);
                         counter.incrementAnimalsEaten();
                         eatenAnimals.add(animal); // добавляем съеденное животное в список
                     }
                 }
                 // удаляем только съеденные животные
                 for (Animal eatenAnimal : eatenAnimals) {
-                    island.removeGameObjectFromIsland(eatenAnimal);
-                    island.gameObjects.remove(eatenAnimal);
+                    this.removeGameObjectFromIsland(eatenAnimal);
+                    this.gameObjects.remove(eatenAnimal);
                     location.removeGameObject(eatenAnimal);
                     animals.remove(eatenAnimal);
                     locations[eatenAnimal.getX()][eatenAnimal.getY()].removeGameObject(eatenAnimal);
@@ -131,8 +131,8 @@ public class Island {
                 while (iterator.hasNext()) {
                     Animal deadAnimal = iterator.next();
                     if (!deadAnimal.isAlive()) {
-                        island.removeGameObjectFromIsland(deadAnimal);
-                        island.gameObjects.remove(deadAnimal);
+                        this.removeGameObjectFromIsland(deadAnimal);
+                        this.gameObjects.remove(deadAnimal);
                         location.removeGameObject(deadAnimal);
                         iterator.remove();
                         locations[deadAnimal.getX()][deadAnimal.getY()].removeGameObject(deadAnimal);
