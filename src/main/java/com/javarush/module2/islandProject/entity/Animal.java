@@ -75,11 +75,11 @@ public abstract class Animal extends GameObject implements Movable {
                             if (attempt <= probability) {
                                 this.setSatiety(this.getSatiety() + foodValue);
                                 System.out.printf("%s has eaten %s, gaining %f points of satiety.\n", this.getName(), other.getName(), foodValue);
-                                other.setAlive(false);
                                 location.removeGameObject(other);
-//                                island.removeGameObjectFromIsland(other);
                                 counter.incrementAnimalsEaten();
                                 counter.incrementAnimalsDied();
+                                other.setAlive(false);
+
                                 return;
                             } else {
                                 System.out.printf("%s attempted to eat %s, but failed.\n", this.getName(), other.getName());
