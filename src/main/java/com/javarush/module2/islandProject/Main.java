@@ -22,7 +22,7 @@ public class Main {
         Island island = new Island();
         IslandBuilder builder = new IslandBuilder();
         builder.islandBuild(island);
-        builder.start(island,1);
+        builder.start(island,2);
 
         System.out.println("end");
 

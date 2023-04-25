@@ -99,7 +99,7 @@ public class Island {
         }
     }
 
-    public void timeToEat(Island island) {
+    public void timeToEat() {
         for (Location[] row : locations) {
             for (Location location : row) {
                 ArrayList<GameObject> gameObjects = location.getGameObjects();
