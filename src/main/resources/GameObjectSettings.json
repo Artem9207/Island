@@ -1,0 +1,196 @@
+{
+  "Animal": [
+    {"name": "Boar",
+      "weight": 400.0,
+      "maxQuantityAtGrid": 50,
+      "speed": 2,
+      "satiety": 50,
+      "foodForFullSatiety": 50.0,
+      "eatProbability": {
+        "Grass": 100,
+        "Mouse": 50,
+        "Caterpillar": 90
+      }
+    },
+    {
+      "name": "Buffalo",
+      "weight": 700.0,
+      "maxQuantityAtGrid": 10,
+      "speed": 3,
+      "satiety": 50,
+      "foodForFullSatiety": 100.0,
+      "eatProbability": {
+        "Grass": 100
+      }
+    },
+    {
+      "name": "Deer",
+      "weight": 300.0,
+      "maxQuantityAtGrid": 20,
+      "speed": 4,
+      "satiety": 50,
+      "foodForFullSatiety": 50.0,
+      "eatProbability": {
+        "Grass": 100
+      }
+    },
+    {
+      "name": "Duck",
+      "weight": 1.0,
+      "maxQuantityAtGrid": 200,
+      "speed": 4,
+      "satiety": 50,
+      "foodForFullSatiety": 0.15,
+      "eatProbability": {
+        "Grass": 100,
+        "Caterpillar": 90
+      }
+    },
+    {
+      "name": "Goat",
+      "weight": 60.0,
+      "maxQuantityAtGrid": 140,
+      "speed": 3,
+      "satiety": 50,
+      "foodForFullSatiety": 10.0,
+      "eatProbability": {
+        "Grass": 100
+      }
+    },
+    {
+      "name": "Horse",
+      "weight": 400.0,
+      "maxQuantityAtGrid": 20,
+      "speed": 4,
+      "satiety": 50,
+      "foodForFullSatiety": 60.0,
+      "eatProbability": {
+        "Grass": 100
+      }
+    },
+    {
+      "name": "Mouse",
+      "weight": 0.05,
+      "maxQuantityAtGrid": 500,
+      "speed": 1,
+      "satiety": 50,
+      "foodForFullSatiety": 0.01,
+      "eatProbability": {
+        "Grass": 100,
+        "Сaterpillar": 90
+      }
+    },
+    {
+      "name": "Rabbit",
+      "weight": 2.0,
+      "maxQuantityAtGrid": 150,
+      "speed": 2,
+      "satiety": 50,
+      "foodForFullSatiety": 0.45,
+      "eatProbability": {
+        "Grass": 100
+      }
+    },
+    {
+      "name": "Sheep",
+      "weight": 70.0,
+      "maxQuantityAtGrid": 140,
+      "speed": 3,
+      "satiety": 50,
+      "foodForFullSatiety": 15.0,
+      "eatProbability": {
+        "Grass": 100
+      }
+    },
+    {
+      "name": "Caterpillar",
+      "weight": 0.01,
+      "maxQuantityAtGrid": 1000,
+      "speed": 0,
+      "satiety": 50,
+      "foodForFullSatiety": 0.0
+    },
+    {
+      "name": "Anaconda",
+      "weight": 15.0,
+      "maxQuantityAtGrid": 30,
+      "speed": 1,
+      "satiety": 50,
+      "foodForFullSatiety": 3.0,
+      "eatProbability": {
+        "Mouse": 40,
+        "Fox": 15,
+        "Rabbit": 20,
+        "Duck": 10
+      }
+    },
+    {
+      "name": "Bear",
+      "weight": 500.0,
+      "maxQuantityAtGrid": 5,
+      "speed": 2,
+      "satiety": 50,
+      "foodForFullSatiety": 80.0,
+      "eatProbability": {
+        "Mouse": 50,
+        "Anaconda": 80,
+        "Horse": 40,
+        "Deer": 80,
+        "Rabbit": 90,
+        "Goat": 70,
+        "Sheep": 70,
+        "Boar": 50,
+        "Buffalo": 20,
+        "Duck": 10
+      }
+    },
+    {
+      "name": "Eagle",
+      "weight": 6.0,
+      "maxQuantityAtGrid": 20,
+      "speed": 3,
+      "satiety": 50,
+      "foodForFullSatiety": 1.0,
+      "eatProbability": {
+        "Mouse": 90,
+        "Fox": 10,
+        "Rabbit": 90,
+        "Duck": 80
+      }
+    },
+    {
+      "name": "Fox",
+      "weight": 8.0,
+      "maxQuantityAtGrid": 30,
+      "speed": 2,
+      "satiety": 50,
+      "foodForFullSatiety": 2.0,
+      "eatProbability": {
+        "Mouse": 90,
+        "Rabbit": 70,
+        "Duck": 60,
+        "Caterpillar": 40
+      }
+    },
+    {
+      "name": "Wolf",
+      "weight": 50.0,
+      "maxQuantityAtGrid": 30,
+      "speed": 2,
+      "satiety": 50,
+      "foodForFullSatiety": 8.0,
+      "eatProbability": {
+       "Horse": 10,
+        "Deer": 15,
+        "Rabbit": 60,
+        "Mouse": 80,
+        "Goat": 60,
+        "Sheep": 70,
+        "Boar": 15,
+        "Buffalo": 10,
+        "Duck": 40
+      }
+    }
+  ]
+}
+
