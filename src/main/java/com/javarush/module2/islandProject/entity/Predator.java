@@ -1,11 +1,8 @@
 package com.javarush.module2.islandProject.entity;
 
-import com.javarush.module2.islandProject.animals.Predators.Wolf;
-import com.javarush.module2.islandProject.interfaces.Eating;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -22,7 +19,7 @@ public abstract class Predator extends Animal {
     }
 
     @Override
-    public void Die() {
+    public void die() {
 
     }
 

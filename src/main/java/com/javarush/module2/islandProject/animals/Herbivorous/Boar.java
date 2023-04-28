@@ -1,10 +1,7 @@
 package com.javarush.module2.islandProject.animals.Herbivorous;
 
-import com.javarush.module2.islandProject.entity.Animal;
 import com.javarush.module2.islandProject.entity.Herbivorous;
 import com.javarush.module2.islandProject.entity.Island;
-import com.javarush.module2.islandProject.entity.Location;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -40,6 +37,6 @@ public class Boar extends Herbivorous {
     }
 
     @Override
-    public void Die() {
+    public void die() {
     }
 }

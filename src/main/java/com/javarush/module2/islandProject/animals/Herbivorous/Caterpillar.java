@@ -1,7 +1,6 @@
 package com.javarush.module2.islandProject.animals.Herbivorous;
 
 import com.javarush.module2.islandProject.entity.Herbivorous;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -29,6 +28,6 @@ public class Caterpillar extends Herbivorous {
     }
 
     @Override
-    public void Die() {
+    public void die() {
     }
 }

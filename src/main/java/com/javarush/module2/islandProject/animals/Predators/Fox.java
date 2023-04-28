@@ -1,10 +1,8 @@
 package com.javarush.module2.islandProject.animals.Predators;
 
 import com.javarush.module2.islandProject.entity.Island;
-import com.javarush.module2.islandProject.entity.Location;
 import com.javarush.module2.islandProject.entity.Predator;
 import com.javarush.module2.islandProject.interfaces.Movable;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -43,7 +41,7 @@ public class Fox extends Predator implements Movable {
     }
 
     @Override
-    public void Die() {
+    public void die() {
 
     }
 

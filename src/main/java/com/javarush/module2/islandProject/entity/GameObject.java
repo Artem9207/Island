@@ -11,7 +11,7 @@ public abstract class GameObject {
     private String name;
     private double weight;
     private int maxQuantityAtGrid;
-//    private Location location;
+    private Location location;
     private int x;
     private int y;
 
@@ -21,11 +21,11 @@ public abstract class GameObject {
         this.maxQuantityAtGrid = maxQuantityAtGrid;
     }
 
-//    public Location getLocation() {
-//        return location;
-//    }
+    public Location getLocation() {
+        return location;
+    }
 
-//    public void setLocation(Location location) {
-//        this.location = location;
-//    }
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

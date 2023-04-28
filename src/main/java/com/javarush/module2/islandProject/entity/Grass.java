@@ -1,6 +1,5 @@
 package com.javarush.module2.islandProject.entity;
 
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString

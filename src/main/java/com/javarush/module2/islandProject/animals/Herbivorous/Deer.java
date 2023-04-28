@@ -1,8 +1,8 @@
 package com.javarush.module2.islandProject.animals.Herbivorous;
 
-import com.javarush.module2.islandProject.entity.*;
+import com.javarush.module2.islandProject.entity.Herbivorous;
+import com.javarush.module2.islandProject.entity.Island;
 import com.javarush.module2.islandProject.interfaces.Movable;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class Deer extends Herbivorous implements Movable {
     }
 
     @Override
-    public void Die() {
+    public void die() {
 
     }
 }

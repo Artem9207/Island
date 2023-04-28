@@ -1,6 +1,5 @@
 package com.javarush.module2.islandProject.entity;
 
-import com.javarush.module2.islandProject.interfaces.Eating;
 import lombok.NoArgsConstructor;
 
 import java.util.Map;
@@ -18,7 +17,7 @@ public abstract class Herbivorous extends Animal {
     }
 
     @Override
-    public void Die() {
+    public void die() {
 
     }
 

@@ -2,12 +2,12 @@ package com.javarush.module2.islandProject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.javarush.module2.islandProject.interfaces.Movable;
-import com.javarush.module2.islandProject.service.Counter;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 @ToString
 @Getter
 @EqualsAndHashCode(callSuper = true)
@@ -17,12 +17,11 @@ import java.util.Map;
 
 public abstract class Animal extends GameObject implements Movable {
     private int speed;
-    private double satiety; // сытость, определить границы с 0 до 100
+    private double satiety;
     private double foodForFullSatiety;
     private Map<String, Integer> eatProbability;
     private boolean isAlive = true;
     private boolean canReproduce =true;
-    Counter counter = new Counter();
 
     public void setSatiety(double satiety) {
         if (satiety > 100) {
@@ -40,9 +39,14 @@ public abstract class Animal extends GameObject implements Movable {
         this.eatProbability = eatProbability;
     }
 
+
+
+
+
     public void eat(Island island) {
         Location[][] locations = island.getLocations();
         Location location = null;
+
 
         if (!isAlive()) {
             return;
@@ -56,7 +60,8 @@ public abstract class Animal extends GameObject implements Movable {
             for (Location loc : row) {
                 location = loc;
                 ArrayList<GameObject> gameObjectsAtLocation = location.getGameObjects();
-                List<Animal> animalsAtLocation = location.getAnimals(gameObjectsAtLocation);
+                List<Animal> animalsAtLocation = location.getAnimalsInLocation(location);
+                List<Animal> deadAnimals = new ArrayList<>();
                 List<Grass> grassAtLocation = new ArrayList<>();
 
                 for (GameObject gameObject : gameObjectsAtLocation) {
@@ -74,20 +79,30 @@ public abstract class Animal extends GameObject implements Movable {
                             int attempt = (int) (Math.random() * 100);
                             if (attempt <= probability) {
                                 this.setSatiety(this.getSatiety() + foodValue);
-                                System.out.printf("%s has eaten %s, gaining %f points of satiety.\n", this.getName(), other.getName(), foodValue);
-                                location.removeGameObject(other);
-                                counter.incrementAnimalsEaten();
-                                counter.incrementAnimalsDied();
+//                                System.out.printf("%s has eaten %s, gaining %f points of satiety.\n", this.getName(), other.getName(), foodValue);
+                                island.incrementEatenAnimals();
+                                island.incrementDeathCount();
+                                location.removeAnimal(other);
                                 other.setAlive(false);
+                                deadAnimals.add(other);
 
                                 return;
                             } else {
-                                System.out.printf("%s attempted to eat %s, but failed.\n", this.getName(), other.getName());
+//                                System.out.printf("%s attempted to eat %s, but failed.\n", this.getName(), other.getName());
+                                this.decreaseSatiety(1);
+                                island.checkIfAnimalStarved(this);
                             }
                         }
                     }
                 }
+//               this.decreaseSatiety(1);
+                island.checkIfAnimalStarved(this);
 
+
+                for (Animal deadAnimal : deadAnimals) {
+                    location.removeGameObject(deadAnimal);
+                    island.getDeadAnimals().add(deadAnimal);
+                }
 
                 for (Grass grass : grassAtLocation) {
                     Integer probability = eatProbability.get(grass.getClass().getSimpleName());
@@ -96,29 +111,24 @@ public abstract class Animal extends GameObject implements Movable {
                         int attempt = (int) (Math.random() * 100);
                         if (attempt <= probability) {
                             this.setSatiety(this.getSatiety() + foodValue);
-                            System.out.printf("%s has eaten %s, gaining %f points of satiety.\n", this.getName(), grass.getName(), foodValue);
+//                            System.out.printf("%s has eaten %s, gaining %f points of satiety.\n", this.getName(), grass.getName(), foodValue);
                             location.removeGameObject(grass);
                             island.removeGameObjectFromIsland(grass);
                             return;
-                        } else {
-                            System.out.printf("%s attempted to eat %s, but failed.\n", this.getName(), grass.getName());
                         }
                     }
                 }
             }
         }
-        System.out.printf("%s found no food.\n", this.getName());
+//        System.out.printf("%s found no food.\n", this.getName());
+       this.decreaseSatiety(1);
 
-        if (this.satiety <= 0) {
-            setAlive(false);
-            if (location != null) {
-                location.removeGameObject(this);
-            }
-            island.removeGameObjectFromIsland(this);
-            counter.incrementAnimalsDied();
-        }
+       island.checkIfAnimalStarved(this);
     }
 
+    public void decreaseSatiety(int amount) {
+        satiety -= amount;
+    }
 
     public boolean canReproduce() {
         return canReproduce;
@@ -129,7 +139,7 @@ public abstract class Animal extends GameObject implements Movable {
     }
 
 
-    public void Die() {
+    public void die() {
         isAlive = false;
     }
 }
