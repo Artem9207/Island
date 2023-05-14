@@ -39,14 +39,9 @@ public abstract class Animal extends GameObject implements Movable {
         this.eatProbability = eatProbability;
     }
 
-
-
-
-
     public void eat(Island island) {
         Location[][] locations = island.getLocations();
         Location location = null;
-
 
         if (!isAlive()) {
             return;
@@ -59,8 +54,8 @@ public abstract class Animal extends GameObject implements Movable {
         for (Location[] row : locations) {
             for (Location loc : row) {
                 location = loc;
-                ArrayList<GameObject> gameObjectsAtLocation = location.getGameObjects();
-                List<Animal> animalsAtLocation = location.getAnimalsInLocation(location);
+                List<GameObject> gameObjectsAtLocation = location.getGameObjects();
+                List<Animal> animalsAtLocation = location.getAnimalsInLocation(location, island);
                 List<Animal> deadAnimals = new ArrayList<>();
                 List<Grass> grassAtLocation = new ArrayList<>();
 
@@ -78,30 +73,28 @@ public abstract class Animal extends GameObject implements Movable {
                             double foodValue = other.getFoodForFullSatiety() * ((Herbivorous) other).getWeight();
                             int attempt = (int) (Math.random() * 100);
                             if (attempt <= probability) {
-                                this.setSatiety(this.getSatiety() + foodValue);
-//                                System.out.printf("%s has eaten %s, gaining %f points of satiety.\n", this.getName(), other.getName(), foodValue);
-                                island.incrementEatenAnimals();
-                                island.incrementDeathCount();
-                                location.removeAnimal(other);
-                                other.setAlive(false);
-                                deadAnimals.add(other);
-
+                                synchronized (island) {
+                                    this.setSatiety(this.getSatiety() + foodValue);
+                                    island.incrementEatenAnimals();
+                                    island.incrementDeathCount();
+                                    location.removeAnimal(other);
+                                    other.setAlive(false);
+                                    deadAnimals.add(other);
+                                }
                                 return;
                             } else {
-//                                System.out.printf("%s attempted to eat %s, but failed.\n", this.getName(), other.getName());
                                 this.decreaseSatiety(1);
                                 island.checkIfAnimalStarved(this);
                             }
                         }
                     }
                 }
-//               this.decreaseSatiety(1);
-                island.checkIfAnimalStarved(this);
-
 
                 for (Animal deadAnimal : deadAnimals) {
                     location.removeGameObject(deadAnimal);
-                    island.getDeadAnimals().add(deadAnimal);
+                    synchronized (island) {
+                        island.getDeadAnimals().add(deadAnimal);
+                    }
                 }
 
                 for (Grass grass : grassAtLocation) {
@@ -110,20 +103,20 @@ public abstract class Animal extends GameObject implements Movable {
                         double foodValue = 5.0 * grass.getWeight();
                         int attempt = (int) (Math.random() * 100);
                         if (attempt <= probability) {
-                            this.setSatiety(this.getSatiety() + foodValue);
-//                            System.out.printf("%s has eaten %s, gaining %f points of satiety.\n", this.getName(), grass.getName(), foodValue);
-                            location.removeGameObject(grass);
-                            island.removeGameObjectFromIsland(grass);
+                            synchronized (island) {
+                                this.setSatiety(this.getSatiety() + foodValue);
+                                location.removeGameObject(grass);
+                                island.removeGameObjectFromIsland(grass);
+                            }
                             return;
                         }
                     }
                 }
             }
         }
-//        System.out.printf("%s found no food.\n", this.getName());
-       this.decreaseSatiety(1);
 
-       island.checkIfAnimalStarved(this);
+        this.decreaseSatiety(1);
+        island.checkIfAnimalStarved(this);
     }
 
     public void decreaseSatiety(int amount) {

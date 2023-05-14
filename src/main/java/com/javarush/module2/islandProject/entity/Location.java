@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 
 @ToString
 public class Location {
-    private int x;
-    private int y;
-    private ArrayList<GameObject> gameObjects;
-    private ArrayList<Animal> animals;
+    private final int x;
+    private final int y;
+    private final List<GameObject> gameObjects;
+    private final List<Animal> animals;
 
     public Location(int x, int y) {
         this.x = x;
@@ -21,34 +21,34 @@ public class Location {
         this.animals = new ArrayList<>();
     }
 
-    public int getX() {
-        return x;
+    public List<GameObject> getGameObjects() {
+        return new ArrayList<>(gameObjects);
     }
-
-    public int getY() {
-        return y;
-    }
-
-
-    public ArrayList<GameObject> getGameObjects() {
-        return gameObjects;
-    }
-
 
     public List<Animal> getAnimals() {
-        return gameObjects.stream()
-                .filter(gameObject -> gameObject instanceof Animal)
-                .map(gameObject -> (Animal) gameObject)
-                .collect(Collectors.toList());
+        synchronized (animals) {
+            return new ArrayList<>(animals);
+        }
     }
 
-    public List<Animal> getAnimalsInLocation(Location location) {
-        return gameObjects.stream()
-                .filter(gameObject -> gameObject instanceof Animal && ((Animal) gameObject).getLocation() == location)
-                .map(gameObject -> (Animal) gameObject)
-                .collect(Collectors.toList());
+    public List<Animal> getAnimalsInLocation(Location location, Island island) {
+        synchronized (island.getAnimals()) {
+            List<Animal> animalsInLocation = new ArrayList<>(island.getAnimals());
+            return animalsInLocation.stream()
+                    .filter(animal -> animal != null && animal.getLocation() == location)
+                    .collect(Collectors.toList());
+        }
     }
 
+
+    public List<GameObject> getGameObjectsInLocation(Location location, Island island) {
+        synchronized (island.getGameObjects()) {
+            List<GameObject> gameObjectsInLocation = new ArrayList<>(island.getGameObjects());
+            return gameObjectsInLocation.stream()
+                    .filter(gameObject -> gameObject.getLocation() == location)
+                    .collect(Collectors.toList());
+        }
+    }
 
 
     public void addGameObject(GameObject gameObject) {
@@ -56,7 +56,7 @@ public class Location {
     }
 
     public void removeGameObject(GameObject gameObject) {
-        gameObjects.removeIf(obj -> obj.equals(gameObject));
+        gameObjects.remove(gameObject);
     }
 
     public void addAnimal(Animal animal) {
@@ -68,16 +68,4 @@ public class Location {
         animals.remove(animal);
         animal.setLocation(null);
     }
-
-    public void removeDeadAnimals() {
-        Iterator<Animal> it = animals.iterator();
-        while (it.hasNext()) {
-            Animal animal = it.next();
-            if (!animal.isAlive()) {
-                it.remove();
-            }
-        }
-    }
-
-
 }
